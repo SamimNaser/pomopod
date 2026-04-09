@@ -3,7 +3,7 @@ from typing import Annotated
 
 from pydantic import BaseModel, BeforeValidator, Field
 
-from pomopod.core.constants import DEFAULT_ACTIVE_PROFILE
+from pomopod.core.constants import DEFAULT_ACTIVE_SPACE
 
 
 class CatppuccinColor(str, Enum):
@@ -40,13 +40,13 @@ def validate_color(v: str) -> str:
 ValidatedColor = Annotated[str, BeforeValidator(validate_color)]
 
 
-class Profile(BaseModel):
+class Space(BaseModel):
   focus_duration: int = Field(default=25, ge=1, le=600, description="Focus duration in minutes")
   short_break_duration: int = Field(default=5, ge=1, le=120, description="Short break in minutes")
   long_break_duration: int = Field(default=10, ge=1, le=300, description="Long break in minutes")
 
   sessions_until_long_break: int = Field(
-    default=4, ge=1, le=100, description="Sessions until long break"
+    default=4, ge=1, le=25, description="Sessions until long break"
   )
 
   color: ValidatedColor = Field(default=CatppuccinColor.ROSEWATER, description="Color")
@@ -66,9 +66,9 @@ class NotificationSettings(BaseModel):
 
 
 class Config(BaseModel):
-  profiles: dict[str, Profile] = Field(
-    default_factory=lambda: {DEFAULT_ACTIVE_PROFILE: Profile()},
-    description="Profiles",
+  spaces: dict[str, Space] = Field(
+    default_factory=lambda: {DEFAULT_ACTIVE_SPACE: Space()},
+    description="Spaces",
   )
   daemon: DaemonSettings = Field(default_factory=DaemonSettings, description="Daemon settings")
   notifications: NotificationSettings = Field(
@@ -84,7 +84,7 @@ class TimerStateType(str, Enum):
 
 
 class TimerState(BaseModel):
-  profile_name: str = DEFAULT_ACTIVE_PROFILE
+  space_name: str = DEFAULT_ACTIVE_SPACE
   current_type: TimerStateType = TimerStateType.IDLE
   current_session_number: int = 1
   sessions_until_long_break: int = 4

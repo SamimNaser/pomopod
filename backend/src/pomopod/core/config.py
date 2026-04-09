@@ -5,7 +5,7 @@ from typing import Optional
 from pydantic import ValidationError
 
 from pomopod.core import state
-from pomopod.core.models import Config, DaemonSettings, NotificationSettings, Profile
+from pomopod.core.models import Config, DaemonSettings, NotificationSettings, Space
 
 CONFIG_DIR = Path.home() / ".config" / "pomopod"
 CONFIG_FILE = CONFIG_DIR / "config.json"
@@ -43,46 +43,61 @@ def _save_config(config: Config) -> None:
     json.dump(config.model_dump(), f, indent=2)
 
 
-def get_profiles() -> dict[str, Profile]:
+def get_spaces() -> dict[str, Space]:
   config = _load_config()
-  return config.profiles
+  return config.spaces
 
 
-def get_profile_names() -> list[str]:
+def get_space_names() -> list[str]:
   config = _load_config()
-  return list(config.profiles.keys())
+  return list(config.spaces.keys())
 
 
-def get_active_profile() -> Profile | None:
+def get_active_space() -> Space | None:
   config = _load_config()
 
-  active_profile_name = state.get_active_profile_name()
-  if active_profile_name is None:
+  active_space_name = state.get_active_space_name()
+  if active_space_name is None:
     return None
 
-  return config.profiles.get(active_profile_name)
+  return config.spaces.get(active_space_name)
 
 
-def add_profile(name: str, profile: Profile) -> Profile | None:
+def add_space(name: str, space: Space) -> Space | None:
   config = _load_config()
 
-  if name in list(config.profiles.keys()):
+  if name in list(config.spaces.keys()):
     return None
 
-  config.profiles[name] = profile
+  config.spaces[name] = space
   _save_config(config)
-  return profile
+  return space
 
 
-def remove_profile(name: str) -> Profile | None:
+def edit_space(name: str, updates: dict) -> Space | None:
   config = _load_config()
 
-  if name not in list(config.profiles.keys()):
+  if name not in list(config.spaces.keys()):
     return None
 
-  profile = config.profiles.pop(name)
+  current = config.spaces[name]
+  updated_data = current.model_dump()
+  updated_data.update(updates)
+
+  config.spaces[name] = Space(**updated_data)
   _save_config(config)
-  return profile
+  return config.spaces[name]
+
+
+def remove_space(name: str) -> Space | None:
+  config = _load_config()
+
+  if name not in list(config.spaces.keys()):
+    return None
+
+  space = config.spaces.pop(name)
+  _save_config(config)
+  return space
 
 
 def get_daemon_settings() -> DaemonSettings:

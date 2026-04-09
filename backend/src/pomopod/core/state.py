@@ -1,35 +1,35 @@
 from pathlib import Path
 
 from pomopod.core import config
-from pomopod.core.constants import DEFAULT_ACTIVE_PROFILE
-from pomopod.core.models import Profile
+from pomopod.core.constants import DEFAULT_ACTIVE_SPACE
+from pomopod.core.models import Space
 
 STATE_DIR = Path.home() / ".local" / "share" / "pomopod"
-ACTIVE_PROFILE_FILE = STATE_DIR / "active_profile"
+ACTIVE_SPACE_FILE = STATE_DIR / "active_space"
 
 
 def _ensure_state_dir() -> None:
   STATE_DIR.mkdir(parents=True, exist_ok=True)
 
 
-def get_active_profile_name() -> str | None:
+def get_active_space_name() -> str | None:
   _ensure_state_dir()
 
-  if not ACTIVE_PROFILE_FILE.exists():
-    prof = set_active_profile(DEFAULT_ACTIVE_PROFILE)
+  if not ACTIVE_SPACE_FILE.exists():
+    prof = set_active_space(DEFAULT_ACTIVE_SPACE)
     if not prof:
       return None
-    return DEFAULT_ACTIVE_PROFILE
+    return DEFAULT_ACTIVE_SPACE
 
-  return ACTIVE_PROFILE_FILE.read_text().strip()
+  return ACTIVE_SPACE_FILE.read_text().strip()
 
 
-def set_active_profile(name: str) -> Profile | None:
+def set_active_space(name: str) -> Space | None:
   _ensure_state_dir()
-  profiles = config.get_profiles()
+  spaces = config.get_spaces()
 
-  if name not in profiles.keys():
+  if name not in spaces.keys():
     return None
 
-  ACTIVE_PROFILE_FILE.write_text(name)
-  return profiles.get(name)
+  ACTIVE_SPACE_FILE.write_text(name)
+  return spaces.get(name)
