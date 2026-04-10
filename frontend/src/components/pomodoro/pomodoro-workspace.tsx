@@ -8,7 +8,9 @@ import {
 
 // Lucide Icons
 import {
+  BookOpenText,
   Check,
+  Code,
   Copy,
   MoonStar,
   Pause,
@@ -16,8 +18,8 @@ import {
   RotateCcw,
   Settings2,
   SunMedium,
+  UserRound,
 } from "lucide-react";
-import { DynamicIcon } from "lucide-react/dynamic";
 
 // ShadCN components
 import { Button } from "@/components/ui/button";
@@ -81,17 +83,17 @@ const spaces = [
   {
     id: "personal",
     label: "Personal",
-    icon: "user-round",
+    icon: UserRound,
   },
   {
     id: "coding",
     label: "Coding",
-    icon: "code",
+    icon: Code,
   },
   {
     id: "study",
     label: "Study",
-    icon: "book-open-text",
+    icon: BookOpenText,
   },
 ] as const;
 
@@ -654,7 +656,7 @@ export function PomodoroWorkspace() {
                     iconSize={42}
                     iconMagnification={58}
                   >
-                    {spaces.map(({ id, label, icon }) => {
+                    {spaces.map(({ id, label, icon: Icon }) => {
                       const isActive = activeSpace === id;
 
                       return (
@@ -684,8 +686,7 @@ export function PomodoroWorkspace() {
                                       "bg-accent text-accent-foreground shadow-sm",
                                   )}
                                 >
-                                  {/* <Icon className="size-4" /> */}
-                                  <DynamicIcon name={icon} className="size-4" />
+                                  <Icon className="size-4" />
                                 </span>
                               </button>
                             </TooltipTrigger>
