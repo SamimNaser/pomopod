@@ -327,9 +327,9 @@ export function PomodoroWorkspace() {
 
   return (
     <div className="min-h-svh bg-background text-foreground">
-      <div className="mx-auto flex h-svh max-w-7xl items-center justify-center overflow-hidden p-3 sm:p-4 lg:p-5">
-        <section className="relative h-full w-full overflow-hidden rounded-[2rem] border border-border/70 bg-card shadow-2xl">
-          <div className="relative flex h-full flex-col p-4 sm:p-5 lg:p-6">
+      <div className="mx-auto flex min-h-svh w-full max-w-480 items-center justify-center overflow-hidden p-3 sm:p-4 lg:p-5 min-[1800px]:max-w-640">
+        <section className="relative max-h-312 min-h-168 w-full overflow-hidden rounded-[2rem] border border-border/70 bg-card shadow-2xl">
+          <div className="relative flex h-full min-h-168 flex-col p-4 sm:p-5 lg:p-6">
             {/* Header with branding and the settings sheet trigger. */}
             <header className="flex items-start justify-between gap-4">
               <div>
@@ -525,9 +525,9 @@ export function PomodoroWorkspace() {
             </header>
 
             {/* Main timer presentation and session controls. */}
-            <div className="flex flex-col items-center justify-center gap-5 py-5 sm:py-6">
+            <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col items-center justify-center gap-5 py-5 sm:py-6 min-[1800px]:max-w-336">
               {/* Active space label and timer context. */}
-              <div className="w-full max-w-4xl text-center mt-10">
+              <div className="mt-10 w-full max-w-5xl text-center min-[1800px]:max-w-6xl">
                 <h2 className="mt-4 text-balance text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
                   {activeSpaceMeta.label}
                 </h2>
@@ -632,8 +632,7 @@ export function PomodoroWorkspace() {
             {/* Footer . */}
             <footer className="mt-auto flex flex-col gap-3 pt-4 md:flex-row md:items-end md:justify-between">
               {/* Round summary card. */}
-
-              <div className="w-3/4 max-w-xs rounded-3xl border border-border bg-background/80 p-3.5 backdrop-blur">
+              <div className="w-full max-w-xs rounded-3xl border border-border bg-background/80 p-3.5 backdrop-blur md:w-auto">
                 <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
                   Session flow
                 </p>
