@@ -31,7 +31,7 @@ def list_spaces():
       str(space.focus_duration),
       str(space.short_break_duration),
       str(space.long_break_duration),
-      str(space.sessions_until_long_break),
+      str(space.sessions_before_long_break),
       str(space.color),
     )
 
@@ -46,7 +46,7 @@ def _print_space(name: str, space: Space):
   table.add_row("Focus", str(space.focus_duration))
   table.add_row("Short Break", str(space.short_break_duration))
   table.add_row("Long Break", str(space.long_break_duration))
-  table.add_row("Sessoins", str(space.sessions_until_long_break))
+  table.add_row("Sessoins", str(space.sessions_before_long_break))
   table.add_row("Color", space.color)
 
   console.print(table)
@@ -133,7 +133,7 @@ def add_space(
   sessions: int | None = typer.Option(
     None,
     "--sessions",
-    help="Sessions until long break",
+    help="Sessions before long break",
   ),
   color: str | None = typer.Option(
     None,
@@ -183,8 +183,8 @@ def _add_space_non_interactive(
       short_break if short_break is not None else defaults.short_break_duration
     ),
     "long_break_duration": (long_break if long_break is not None else defaults.long_break_duration),
-    "sessions_until_long_break": (
-      sessions if sessions is not None else defaults.sessions_until_long_break
+    "sessions_before_long_break": (
+      sessions if sessions is not None else defaults.sessions_before_long_break
     ),
     "color": (color if color is not None else defaults.color),
   }
@@ -204,7 +204,7 @@ def _add_space_interactive() -> dict:
     "focus_duration": focus,
     "short_break_duration": short_break,
     "long_break_duration": long_break,
-    "sessions_until_long_break": sessions,
+    "sessions_before_long_break": sessions,
     "color": color,
   }
 
@@ -234,7 +234,7 @@ def edit_space(
   sessions: int | None = typer.Option(
     None,
     "--sessions",
-    help="Sessions until long break",
+    help="Sessions before long break",
   ),
   color: str | None = typer.Option(
     None,
@@ -284,8 +284,8 @@ def _edit_space_non_interactive(
       short_break if short_break is not None else space.short_break_duration
     ),
     "long_break_duration": (long_break if long_break is not None else space.long_break_duration),
-    "sessions_until_long_break": (
-      sessions if sessions is not None else space.sessions_until_long_break
+    "sessions_before_long_break": (
+      sessions if sessions is not None else space.sessions_before_long_break
     ),
     "color": (color if color is not None else space.color),
   }
@@ -300,14 +300,14 @@ def _edit_space_interactive(name: str, space: Space) -> dict:
   focus = typer.prompt("Focus duration", default=space.focus_duration, type=int)
   short_break = typer.prompt("Short break duration", default=space.short_break_duration, type=int)
   long_break = typer.prompt("Long break duration", default=space.long_break_duration, type=int)
-  sessions = typer.prompt("Sessions", default=space.sessions_until_long_break, type=int)
+  sessions = typer.prompt("Sessions", default=space.sessions_before_long_break, type=int)
   color = typer.prompt("Color", default=space.color, type=str)
 
   return {
     "focus_duration": focus,
     "short_break_duration": short_break,
     "long_break_duration": long_break,
-    "sessions_until_long_break": sessions,
+    "sessions_before_long_break": sessions,
     "color": color,
   }
 

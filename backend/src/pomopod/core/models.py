@@ -45,8 +45,8 @@ class Space(BaseModel):
   short_break_duration: int = Field(default=5, ge=1, le=120, description="Short break in minutes")
   long_break_duration: int = Field(default=10, ge=1, le=300, description="Long break in minutes")
 
-  sessions_until_long_break: int = Field(
-    default=4, ge=1, le=25, description="Sessions until long break"
+  sessions_before_long_break: int = Field(
+    default=4, ge=1, le=25, description="Sessions before long break"
   )
 
   color: ValidatedColor = Field(default=CatppuccinColor.ROSEWATER, description="Color")
@@ -87,7 +87,6 @@ class TimerState(BaseModel):
   space_name: str = DEFAULT_ACTIVE_SPACE
   current_type: TimerStateType = TimerStateType.IDLE
   current_session_number: int = 1
-  sessions_until_long_break: int = 4
+  sessions_before_long_break: int = 4
   is_paused: bool = True
   end_timestamp_ms: int = 0
-  base_color: str = "lavender"
