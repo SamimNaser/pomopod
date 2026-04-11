@@ -39,6 +39,7 @@ def list_spaces():
 
 
 def _print_space(name: str, space: Space):
+  """Print the pomodoro space details."""
   table = Table(title=f"{name}")
   table.add_column("Setting", style="cyan")
   table.add_column("Value", style="green")
@@ -115,27 +116,27 @@ def add_space(
     ...,
     help="Name of the new pomodoro space",
   ),
-  focus: int | None = typer.Option(
+  focus: Optional[int] = typer.Option(
     None,
     "--focus",
     help="Focus duration",
   ),
-  short_break: int | None = typer.Option(
+  short_break: Optional[int] = typer.Option(
     None,
     "--short-break",
     help="Short break duration",
   ),
-  long_break: int | None = typer.Option(
+  long_break: Optional[int] = typer.Option(
     None,
     "--long-break",
     help="Long break duration",
   ),
-  sessions: int | None = typer.Option(
+  sessions: Optional[int] = typer.Option(
     None,
     "--sessions",
     help="Sessions before long break",
   ),
-  color: str | None = typer.Option(
+  color: Optional[str] = typer.Option(
     None,
     "--color",
     help="Base color",
@@ -166,11 +167,11 @@ def add_space(
 
 
 def _add_space_non_interactive(
-  focus: int | None,
-  short_break: int | None,
-  long_break: int | None,
-  sessions: int | None,
-  color: str | None,
+  focus: Optional[int],
+  short_break: Optional[int],
+  long_break: Optional[int],
+  sessions: Optional[int],
+  color: Optional[str],
 ) -> dict:
   """Non-interactive space creation with defaults."""
 
@@ -216,27 +217,27 @@ def edit_space(
     help="Name of the pomodoro space",
     autocompletion=complete_spaces,
   ),
-  focus: int | None = typer.Option(
+  focus: Optional[int] = typer.Option(
     None,
     "--focus",
     help="Focus duration",
   ),
-  short_break: int | None = typer.Option(
+  short_break: Optional[int] = typer.Option(
     None,
     "--short-break",
     help="Short break duration",
   ),
-  long_break: int | None = typer.Option(
+  long_break: Optional[int] = typer.Option(
     None,
     "--long-break",
     help="Long break duration",
   ),
-  sessions: int | None = typer.Option(
+  sessions: Optional[int] = typer.Option(
     None,
     "--sessions",
     help="Sessions before long break",
   ),
-  color: str | None = typer.Option(
+  color: Optional[str] = typer.Option(
     None,
     "--color",
     help="Base color",
@@ -270,11 +271,11 @@ def edit_space(
 
 def _edit_space_non_interactive(
   space: Space,
-  focus: int | None,
-  short_break: int | None,
-  long_break: int | None,
-  sessions: int | None,
-  color: str | None,
+  focus: Optional[int],
+  short_break: Optional[int],
+  long_break: Optional[int],
+  sessions: Optional[int],
+  color: Optional[str],
 ) -> dict:
   """Non-interactive space creation with defaults."""
 
