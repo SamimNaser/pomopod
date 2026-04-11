@@ -53,7 +53,7 @@ def get_space_names() -> list[str]:
   return list(config.spaces.keys())
 
 
-def get_active_space() -> Space | None:
+def get_active_space() -> Optional[Space]:
   config = _load_config()
 
   active_space_name = state.get_active_space_name()
@@ -63,7 +63,7 @@ def get_active_space() -> Space | None:
   return config.spaces.get(active_space_name)
 
 
-def add_space(name: str, space: Space) -> Space | None:
+def add_space(name: str, space: Space) -> Optional[Space]:
   config = _load_config()
 
   if name in list(config.spaces.keys()):
@@ -74,7 +74,7 @@ def add_space(name: str, space: Space) -> Space | None:
   return space
 
 
-def edit_space(name: str, updates: dict) -> Space | None:
+def edit_space(name: str, updates: dict) -> Optional[Space]:
   config = _load_config()
 
   if name not in list(config.spaces.keys()):
@@ -89,7 +89,7 @@ def edit_space(name: str, updates: dict) -> Space | None:
   return config.spaces[name]
 
 
-def remove_space(name: str) -> Space | None:
+def remove_space(name: str) -> Optional[Space]:
   config = _load_config()
 
   if name not in list(config.spaces.keys()):
