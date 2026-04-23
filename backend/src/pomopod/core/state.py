@@ -2,8 +2,8 @@ from pathlib import Path
 
 from pomopod.core import config
 from pomopod.core.models import Space
-from pomopod.exceptions.config import SpaceDoesNotExist
-from pomopod.exceptions.state import ActiveSpaceNotSet
+from pomopod.err.config import SpaceDoesNotExist
+from pomopod.err.state import ActiveSpaceNotSet
 
 STATE_DIR = Path.home() / ".local" / "share" / "pomopod"
 ACTIVE_SPACE_FILE = STATE_DIR / "active_space"

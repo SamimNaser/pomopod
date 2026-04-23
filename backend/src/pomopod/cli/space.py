@@ -8,8 +8,8 @@ from rich.table import Table
 
 from pomopod.core import config, state
 from pomopod.core.models import Space
-from pomopod.exceptions.config import SpaceAlreadyExists, SpaceDoesNotExist
-from pomopod.exceptions.state import ActiveSpaceNotSet
+from pomopod.err.config import SpaceAlreadyExists, SpaceDoesNotExist
+from pomopod.err.state import ActiveSpaceNotSet
 
 app = typer.Typer()
 console = Console()
@@ -394,7 +394,7 @@ def rename_space(
 
   try:
     space = config.remove_space(name)
-    space = config.add_space(new_name, space)
+    config.add_space(new_name, space)
   except SpaceDoesNotExist:
     rprint(f'Space [bold red]"{name}"[/bold red] does not exist')
     return

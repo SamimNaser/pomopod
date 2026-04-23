@@ -6,7 +6,7 @@ from pydantic import ValidationError
 
 from pomopod.core import state
 from pomopod.core.models import Config, DaemonSettings, NotificationSettings, Space
-from pomopod.exceptions.config import SpaceAlreadyExists, SpaceDoesNotExist
+from pomopod.err.config import SpaceAlreadyExists, SpaceDoesNotExist
 
 CONFIG_DIR = Path.home() / ".config" / "pomopod"
 CONFIG_FILE = CONFIG_DIR / "config.json"

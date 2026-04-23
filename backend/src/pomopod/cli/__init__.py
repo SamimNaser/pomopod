@@ -20,8 +20,3 @@ app.add_typer(
   name="room",
   help="Serve/Join pomodoro pods",
 )
-
-
-@app.command(name="status", help="Get pomodoro status")
-def status():
-  typer.echo("Fetching status...")

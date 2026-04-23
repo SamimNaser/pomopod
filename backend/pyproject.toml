@@ -5,9 +5,15 @@ description = "A pomodoro where you can join pods with your friends and collabor
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
+  "fastapi>=0.136.0",
+  "httpx>=0.28.1",
+  "plyer>=2.1.0",
   "pydantic>=2.12.5",
+  "requests>=2.33.1",
   "rich>=14.3.3",
+  "scalar-fastapi>=1.8.2",
   "typer>=0.24.1",
+  "uvicorn>=0.44.0",
   "websockets>=16.0",
 ]
 
